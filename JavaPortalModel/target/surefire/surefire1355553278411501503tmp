@@ -1,0 +1,6 @@
+#surefire
+#Tue Feb 26 12:16:07 EET 2019
+maven.ext.class.path=/usr/local/netbeans-8.2/java/maven-nblib/netbeans-eventspy.jar
+user.dir=/home/yurii/NetBeansProjects/JavaEEPortal/JavaPortalModel
+localRepository=/home/yurii/.m2/repository
+basedir=/home/yurii/NetBeansProjects/JavaEEPortal/JavaPortalModel
