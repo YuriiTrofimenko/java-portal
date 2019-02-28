@@ -18,11 +18,11 @@ import org.tyaa.java.portal.model.Author;
 
 import java.util.List;
 
-public class JsonFetchr implements IFetchr{
+public class JsonFetchr implements IFetchr {
 
     private IFetchedDataHandler mFetchedDataHandler;
 
-    public JsonFetchr(IFetchedDataHandler _fetchedDataHandler){
+    public JsonFetchr(IFetchedDataHandler _fetchedDataHandler) {
 
         mFetchedDataHandler = _fetchedDataHandler;
     }
@@ -32,13 +32,13 @@ public class JsonFetchr implements IFetchr{
 
         String urlString = _args.toString();
 
-        RequestQueue queue = Volley.newRequestQueue((Context)mFetchedDataHandler);
+        RequestQueue queue = Volley.newRequestQueue((Context) mFetchedDataHandler);
         Log.d("my", urlString);
         JsonObjectRequest jsonArrayRequest =
-                new JsonObjectRequest(
-                        urlString
-                        , new JSONObject()
-                        , new Response.Listener<JSONObject>() {
+            new JsonObjectRequest(
+                urlString
+                , new JSONObject()
+                , new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("my", response.toString());
@@ -48,17 +48,17 @@ public class JsonFetchr implements IFetchr{
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        mFetchedDataHandler.onOrdersFetched(authors);
+                        mFetchedDataHandler.onAuthorsFetched(authors);
                     }
                 }
-                        , new Response.ErrorListener() {
+                , new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
                         Log.d("my", error.toString());
                     }
                 }
-                );
+            );
         queue.add(jsonArrayRequest);
     }
 }

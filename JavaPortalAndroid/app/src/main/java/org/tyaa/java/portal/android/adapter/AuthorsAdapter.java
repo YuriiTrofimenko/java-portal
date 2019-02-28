@@ -42,13 +42,11 @@ public class AuthorsAdapter extends ArrayAdapter<Author> {
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         authorNameTextView.setText(mAuthors.get(position).getName());
-        authorStartedAtTextView.setText(format.format(mAuthors.get(position).getStartedAt()));
-        /*descriptionTextView.setText(
-                "Task: " +
-                        (mOrders.get(position).getText().length() > 25
-                                ? mOrders.get(position).getText().substring(0, 25) + " ..."
-                                : mOrders.get(position).getText())
-        );*/
+        authorStartedAtTextView.setText(
+                "(since "
+                + format.format(mAuthors.get(position).getStartedAt())
+                + ")"
+        );
 
         return view;
     }
