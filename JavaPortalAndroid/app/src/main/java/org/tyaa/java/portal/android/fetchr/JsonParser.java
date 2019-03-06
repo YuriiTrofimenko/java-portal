@@ -27,7 +27,7 @@ public class JsonParser {
                 .create();
     }
 
-    public List<Author> parseOrders(JSONObject _jsonObject)
+    public List<Author> parseAuthors(JSONObject _jsonObject)
             throws JSONException {
 
         //
@@ -37,5 +37,23 @@ public class JsonParser {
                 _jsonObject.getJSONArray("data").toString()
                 , authorListType
         );
+    }
+
+    public Author parseAuthor(JSONObject _jsonObject)
+            throws JSONException {
+
+        //
+        Type authorType =
+                new TypeToken<Author>(){}.getType();
+        return (Author)mGson.fromJson(
+                _jsonObject.getJSONObject("data").toString()
+                , authorType
+        );
+    }
+
+    public String parseResponse(JSONObject _jsonObject)
+            throws JSONException {
+
+        return _jsonObject.getString("status");
     }
 }

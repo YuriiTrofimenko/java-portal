@@ -1,2 +1,5 @@
 ﻿build/
 dist/
+/JavaPortalEJB/JavaPortalEJB-ejb/build/
+/JavaPortalEJB/build/
+/JavaPortalEJB/JavaPortalEJB-war/build/

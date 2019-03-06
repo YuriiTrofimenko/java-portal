@@ -3,14 +3,18 @@ package org.tyaa.java.portal.android.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.tyaa.java.portal.android.MainActivity;
 import org.tyaa.java.portal.android.R;
+import org.tyaa.java.portal.android.fetchr.IFetchedDataHandler;
+import org.tyaa.java.portal.android.fetchr.JsonFetchr;
 import org.tyaa.java.portal.model.Author;
 
 import java.text.SimpleDateFormat;
@@ -47,6 +51,21 @@ public class AuthorsAdapter extends ArrayAdapter<Author> {
                 + format.format(mAuthors.get(position).getStartedAt())
                 + ")"
         );
+
+        final int finalPosition = position;
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("my", mAuthors.get(finalPosition).getId().toString());
+                try {
+                    new JsonFetchr((IFetchedDataHandler)mContext)
+                            //.fetch("http://10.0.3.2:8080/JavaPortalEJB-war/api/author");
+                            .fetchOne("http://10.0.2.2:8080/JavaPortalEJB-war/api/author/get/", mAuthors.get(finalPosition).getId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         return view;
     }

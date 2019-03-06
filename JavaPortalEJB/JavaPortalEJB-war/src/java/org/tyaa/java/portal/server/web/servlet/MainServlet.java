@@ -109,7 +109,12 @@ public class MainServlet extends HttpServlet {
                         (IController)initialContext
                                 .lookup("java:global/JavaPortalEJB/JavaPortalEJB-war/" + controller);
 
-                    Object args = id;
+                    Object args = null;
+                    if (id != null) {
+                        args = id;
+                    } else if (request.getAttribute("data") != null) {
+                        args = request.getAttribute("data");
+                    }
                     System.out.println(controllerInstance.getClass()
                             .getMethod(action, Object.class).getName());
                     result =

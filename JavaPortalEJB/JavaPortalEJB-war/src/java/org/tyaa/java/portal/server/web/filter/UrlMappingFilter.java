@@ -60,6 +60,15 @@ public class UrlMappingFilter implements Filter {
                             if (queryStringParts.length > 7) {
                                 request.setAttribute("id", queryStringParts[7]);
                                 System.out.println(queryStringParts[7]);
+                            } else {
+                                if (queryStringParts[6].equals("create")) {
+                                    StringBuilder sb = new StringBuilder();
+                                    String jsonString;
+                                    while ((jsonString = request.getReader().readLine()) != null) {
+                                        sb.append(jsonString);
+                                    }
+                                    request.setAttribute("data", sb.toString());
+                                }
                             }
                         }
                     }

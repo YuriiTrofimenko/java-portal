@@ -5,11 +5,13 @@
  */
 package org.tyaa.java.portal.server.web.controller;
 
+import com.google.gson.Gson;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
+import javax.json.JsonObject;
 import org.tyaa.java.portal.model.JsonHttpResponse;
 import org.tyaa.java.portal.server.web.service.AuthorService;
 
@@ -51,7 +53,9 @@ public class AuthorController implements IController{
 
     @Override
     public JsonHttpResponse create(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Gson
+        //JSONObject data = null;
+        //Student student = (Student) gson.fromJson(sb.toString(), Student.class);
     }
 
     @Override

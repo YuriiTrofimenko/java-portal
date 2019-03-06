@@ -7,6 +7,7 @@ package org.tyaa.java.portal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Author {
+public class Author implements Serializable{
     private Integer id;
     private String name;
     private String about;
