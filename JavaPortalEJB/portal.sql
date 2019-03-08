@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:3306
--- Время создания: Мар 08 2019 г., 12:41
+-- Время создания: Мар 08 2019 г., 18:24
 -- Версия сервера: 5.7.25-0ubuntu0.18.04.2
 -- Версия PHP: 7.2.15-0ubuntu0.18.04.1
 
@@ -43,7 +43,7 @@ CREATE TABLE `Articles` (
 
 CREATE TABLE `Authors` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `about` text NOT NULL,
   `started_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -54,7 +54,8 @@ CREATE TABLE `Authors` (
 
 INSERT INTO `Authors` (`id`, `name`, `about`, `started_at`) VALUES
 (26, '%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D0%B9', '%D0%9F+1', '2019-03-08 10:36:49'),
-(27, '%D0%98%D0%B2%D0%B0%D0%BD', '%D0%93%D1%80%D0%BE%D0%B7%D0%BD%D1%8B%D0%B9+2', '2019-03-08 10:37:10');
+(27, '%D0%98%D0%B2%D0%B0%D0%BD', '%D0%93%D1%80%D0%BE%D0%B7%D0%BD%D1%8B%D0%B9+2', '2019-03-08 10:37:10'),
+(28, '%D0%98%D0%BC%D1%8F+%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0', '%D0%9E%D0%B1+%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B5+%D0%B8%D0%BC%D1%8F+%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0', '2019-03-08 16:23:35');
 
 --
 -- Индексы сохранённых таблиц
@@ -86,7 +87,7 @@ ALTER TABLE `Articles`
 -- AUTO_INCREMENT для таблицы `Authors`
 --
 ALTER TABLE `Authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --

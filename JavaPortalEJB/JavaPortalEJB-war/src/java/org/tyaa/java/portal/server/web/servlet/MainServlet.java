@@ -73,7 +73,7 @@ public class MainServlet extends HttpServlet {
         }*/
         
         response.setContentType("application/json;charset=UTF-8");
-        String gsonString = "";
+        
         try (PrintWriter out = response.getWriter()) {
             System.out.println("Servlet");
             

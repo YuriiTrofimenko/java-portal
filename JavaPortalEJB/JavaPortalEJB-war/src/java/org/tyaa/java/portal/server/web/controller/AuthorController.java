@@ -67,7 +67,7 @@ public class AuthorController implements IController{
     @Override
     public JsonHttpResponse create(Object o) {
         //
-        //System.out.println("json = " + (String)o);
+        System.out.println("json = " + (String)o);
         JSONObject data =
                 (JSONObject)mGson.fromJson(
                         (String)o

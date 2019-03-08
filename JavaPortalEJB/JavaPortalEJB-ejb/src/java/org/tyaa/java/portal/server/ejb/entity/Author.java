@@ -46,7 +46,7 @@ public class Author implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 255)
     private String name;
     @Basic(optional = false)
     @NotNull
@@ -54,7 +54,7 @@ public class Author implements Serializable {
     @Size(min = 1, max = 65535)
     private String about;
     @Basic(optional = false)
-    @Column(name = "started_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+    @Column(name = "started_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startedAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "authorId")
@@ -116,7 +116,7 @@ public class Author implements Serializable {
     
     @PrePersist
     void onCreate() {
-        this.setStartedAt(new Timestamp((new Date()).getTime()));
+        this.setStartedAt(new Date());
     }
 
     @Override
@@ -139,9 +139,13 @@ public class Author implements Serializable {
         return true;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "org.tyaa.java.portal.server.ejb.entity.Author[ id=" + id + " ]";
+    }*/
+
+    @Override
+    public String toString() {
+        return "Author{" + "id=" + id + ", name=" + name + ", about=" + about + ", startedAt=" + startedAt + ", articleCollection=" + articleCollection + '}';
     }
-    
 }

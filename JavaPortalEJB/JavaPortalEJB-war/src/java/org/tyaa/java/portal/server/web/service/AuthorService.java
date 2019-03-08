@@ -69,6 +69,7 @@ public class AuthorService {
         author.setName(_author.getName());
         author.setAbout(_author.getAbout());
         try{
+            System.out.println(author);
             mAuthorFacade.create(author);
             result = "created";
         }   catch(Exception ex){
