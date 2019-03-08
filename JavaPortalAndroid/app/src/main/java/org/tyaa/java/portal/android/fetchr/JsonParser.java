@@ -28,15 +28,25 @@ public class JsonParser {
     }
 
     public List<Author> parseAuthors(JSONObject _jsonObject)
-            throws JSONException {
+            throws Exception {
 
         //
         Type authorListType =
                 new TypeToken<ArrayList<Author>>(){}.getType();
-        return (List<Author>)mGson.fromJson(
-                _jsonObject.getJSONArray("data").toString()
-                , authorListType
-        );
+        //
+        if (!_jsonObject.getString("status").equals("error")){
+            return (List<Author>)mGson.fromJson(
+                    _jsonObject.getJSONArray("data").toString()
+                    , authorListType
+            );
+        } else {
+            String errorString =
+                    "Server error"
+                    + ((_jsonObject.has("message"))
+                        ? (": " + _jsonObject.getString("message"))
+                        : "");
+            throw new Exception(errorString);
+        }
     }
 
     public Author parseAuthor(JSONObject _jsonObject)
@@ -49,6 +59,12 @@ public class JsonParser {
                 _jsonObject.getJSONObject("data").toString()
                 , authorType
         );
+    }
+
+    public String authorToJsonString(Author _author)
+            throws JSONException {
+
+        return mGson.toJson(_author);
     }
 
     public String parseResponse(JSONObject _jsonObject)

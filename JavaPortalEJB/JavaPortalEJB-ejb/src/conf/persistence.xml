@@ -3,6 +3,9 @@
   <persistence-unit name="JavaPortalEJB-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/PortalPool</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+<!--        <property name="useUnicode" value="true"></property>
+        <property name="characterEncoding" value="utf8mb4"></property>-->
+    </properties>
   </persistence-unit>
 </persistence>

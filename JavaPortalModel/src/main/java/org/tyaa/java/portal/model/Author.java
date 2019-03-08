@@ -31,6 +31,12 @@ public class Author implements Serializable{
     public Author(Integer id) {
         this.id = id;
     }
+    
+    public Author(String name, String about, Date startedAt) {
+        this.name = name;
+        this.about = about;
+        this.startedAt = startedAt;
+    }
 
     public Author(Integer id, String name, String about, Date startedAt) {
         this.id = id;

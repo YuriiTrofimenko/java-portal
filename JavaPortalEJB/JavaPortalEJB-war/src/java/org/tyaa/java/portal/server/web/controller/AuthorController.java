@@ -6,13 +6,17 @@
 package org.tyaa.java.portal.server.web.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.json.JsonObject;
+import org.json.simple.JSONObject;
+import org.tyaa.java.portal.model.Author;
 import org.tyaa.java.portal.model.JsonHttpResponse;
+import org.tyaa.java.portal.server.web.Utils;
 import org.tyaa.java.portal.server.web.service.AuthorService;
 
 /**
@@ -21,6 +25,8 @@ import org.tyaa.java.portal.server.web.service.AuthorService;
  */
 @Stateless
 public class AuthorController implements IController{
+    
+    private Gson mGson;
     
     @EJB
     private AuthorService mAuthorService;
@@ -39,6 +45,13 @@ public class AuthorController implements IController{
         }
         return result;
     }*/
+    
+    public AuthorController(){
+        mGson =
+            (new GsonBuilder())
+                .setDateFormat("dd.MM.yyyy")
+                .create();
+    }
 
     @Override
     public JsonHttpResponse getAll(Object o) {
@@ -53,9 +66,23 @@ public class AuthorController implements IController{
 
     @Override
     public JsonHttpResponse create(Object o) {
-        //Gson
-        //JSONObject data = null;
-        //Student student = (Student) gson.fromJson(sb.toString(), Student.class);
+        //
+        //System.out.println("json = " + (String)o);
+        JSONObject data =
+                (JSONObject)mGson.fromJson(
+                        (String)o
+                        , JSONObject.class
+                );
+        String authorJSONString = (String)data.get("author");
+        Author author =
+                (Author) mGson.fromJson(
+                        authorJSONString
+                        , Author.class
+                );
+        //author.setName(Utils.decodeString(author.getName()));
+        //author.setAbout(Utils.decodeString(author.getAbout()));
+        //System.out.println(Utils.decodeString(author.getName()));
+        return mAuthorService.create(author);
     }
 
     @Override

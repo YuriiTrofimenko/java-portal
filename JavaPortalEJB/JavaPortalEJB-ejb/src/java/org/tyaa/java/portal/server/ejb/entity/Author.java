@@ -6,9 +6,11 @@
 package org.tyaa.java.portal.server.ejb.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,6 +34,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "Authors")
+@Cacheable(false)
 @NamedQueries({
     @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a")})
 public class Author implements Serializable {
@@ -50,8 +54,7 @@ public class Author implements Serializable {
     @Size(min = 1, max = 65535)
     private String about;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "started_at")
+    @Column(name = "started_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date startedAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "authorId")
@@ -109,6 +112,11 @@ public class Author implements Serializable {
 
     public void setArticleCollection(Collection<Article> articleCollection) {
         this.articleCollection = articleCollection;
+    }
+    
+    @PrePersist
+    void onCreate() {
+        this.setStartedAt(new Timestamp((new Date()).getTime()));
     }
 
     @Override

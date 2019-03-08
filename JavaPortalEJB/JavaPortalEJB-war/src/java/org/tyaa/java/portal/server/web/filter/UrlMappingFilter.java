@@ -59,7 +59,7 @@ public class UrlMappingFilter implements Filter {
                             //System.out.println(queryStringParts[6]);
                             if (queryStringParts.length > 7) {
                                 request.setAttribute("id", queryStringParts[7]);
-                                System.out.println(queryStringParts[7]);
+                                //System.out.println(queryStringParts[7]);
                             } else {
                                 if (queryStringParts[6].equals("create")) {
                                     StringBuilder sb = new StringBuilder();
@@ -68,6 +68,7 @@ public class UrlMappingFilter implements Filter {
                                         sb.append(jsonString);
                                     }
                                     request.setAttribute("data", sb.toString());
+                                    //System.out.println("json" + sb.toString());
                                 }
                             }
                         }

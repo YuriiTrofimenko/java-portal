@@ -54,8 +54,8 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
         //10.20.60.10
         //10.0.3.2
         new JsonFetchr(this)
-                //.fetch("http://10.0.3.2:8080/JavaPortalEJB-war/api/author");
-                .fetch("http://10.0.2.2:8080/JavaPortalEJB-war/api/author");
+                .fetch("http://10.0.3.2:8080/JavaPortalEJB-war/api/author");
+                //.fetch("http://10.0.2.2:8080/JavaPortalEJB-war/api/author");
     }
 
     @Override

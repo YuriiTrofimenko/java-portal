@@ -24,15 +24,30 @@ public class AuthorService {
     private AuthorFacade mAuthorFacade;
     
     public JsonHttpResponse getAll(){
-        List<org.tyaa.java.portal.server.ejb.entity.Author> authors =
+        
+        try{
+            List<org.tyaa.java.portal.server.ejb.entity.Author> authors =
                 mAuthorFacade.findAll();
-        List<Author> authorModels = null;
-        if (authors != null) {
-            authorModels = authors.stream().map((a) -> {
-                return new Author(a.getId(), a.getName(), a.getAbout(), a.getStartedAt());
-            }).collect(Collectors.toList());
+
+            List<Author> authorModels = null;
+            if (authors != null) {
+
+                authors.stream().forEach((a) -> {
+                    //System.out.println(a.getStartedAt());
+                    System.out.println(a.getStartedAt() != null ? a.getStartedAt() : "null");
+                });
+                authorModels = authors.stream().map((a) -> {
+                    return new Author(a.getId(), a.getName(), a.getAbout(), a.getStartedAt());
+                }).collect(Collectors.toList());
+            }
+            return new JsonHttpResponse("", "", authorModels);
+        } catch(Exception ex){
+            return new JsonHttpResponse(
+                    "error"
+                    , ex.getMessage() != null ? ex.getMessage() : "Unknown error"
+                    , null
+            );
         }
-        return new JsonHttpResponse("", "", authorModels);
     }
     
     public JsonHttpResponse get(Integer _id){
@@ -44,5 +59,22 @@ public class AuthorService {
                 new Author(author.getId(), author.getName(), author.getAbout(), author.getStartedAt());
         }
         return new JsonHttpResponse("", "", authorModel);
+    }
+    
+    public JsonHttpResponse create(Author _author){
+        
+        String result;
+        org.tyaa.java.portal.server.ejb.entity.Author author =
+                new org.tyaa.java.portal.server.ejb.entity.Author();
+        author.setName(_author.getName());
+        author.setAbout(_author.getAbout());
+        try{
+            mAuthorFacade.create(author);
+            result = "created";
+        }   catch(Exception ex){
+            result = "error";
+        }
+        
+        return new JsonHttpResponse(result, "", null);
     }
 }

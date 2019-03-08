@@ -2,6 +2,7 @@ package org.tyaa.java.portal.android.fetchr;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -11,17 +12,23 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.tyaa.java.portal.android.Utils;
 import org.tyaa.java.portal.model.Author;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class JsonFetchr implements IFetchr {
 
     private IFetchedDataHandler mFetchedDataHandler;
+    private JsonParser mJsonParser;
 
     public JsonFetchr(IFetchedDataHandler _fetchedDataHandler) {
 
         mFetchedDataHandler = _fetchedDataHandler;
+        mJsonParser = new JsonParser();
     }
 
     @Override
@@ -42,10 +49,19 @@ public class JsonFetchr implements IFetchr {
                         List<Author> authors = null;
                         try {
                             authors = new JsonParser().parseAuthors(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            authors =
+                                    authors.stream().map(new Function<Author, Author>() {
+                                        @Override
+                                        public Author apply(Author author) {
+                                            author.setName(Utils.decodeString(author.getName()));
+                                            author.setAbout(Utils.decodeString(author.getAbout()));
+                                            return author;
+                                        }
+                                    }).collect(Collectors.<Author>toList());
+                        } catch (Exception ex) {
+                            Toast.makeText(((Context) mFetchedDataHandler), ex.getMessage(), Toast.LENGTH_LONG).show();
                         }
-                        mFetchedDataHandler.onAuthorsFetched(authors);
+                        mFetchedDataHandler.onAuthorsFetched(authors != null ? authors : new ArrayList());
                     }
                 }
                 , new Response.ErrorListener() {
@@ -76,6 +92,8 @@ public class JsonFetchr implements IFetchr {
                         Author author = null;
                         try {
                             author = new JsonParser().parseAuthor(response);
+                            author.setName(Utils.decodeString(author.getName()));
+                            author.setAbout(Utils.decodeString(author.getAbout()));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -98,7 +116,9 @@ public class JsonFetchr implements IFetchr {
 
         RequestQueue queue = Volley.newRequestQueue((Context) mFetchedDataHandler);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("author", _author);
+        _author.setName(Utils.prepareString(_author.getName()));
+        _author.setAbout(Utils.prepareString(_author.getAbout()));
+        jsonObject.put("author", mJsonParser.authorToJsonString(_author));
         JsonObjectRequest jsonArrayRequest =
                 new JsonObjectRequest(
                         _url
@@ -109,7 +129,7 @@ public class JsonFetchr implements IFetchr {
                         Log.d("my", response.toString());
                         String status = null;
                         try {
-                            status = new JsonParser().parseResponse(response);
+                            status = mJsonParser.parseResponse(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -47,9 +47,11 @@ public class AuthorsAdapter extends ArrayAdapter<Author> {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         authorNameTextView.setText(mAuthors.get(position).getName());
         authorStartedAtTextView.setText(
-                "(since "
-                + format.format(mAuthors.get(position).getStartedAt())
-                + ")"
+                (mAuthors.get(position).getStartedAt() != null)
+                ? "(since "
+                    + format.format(mAuthors.get(position).getStartedAt())
+                    + ")"
+                : ""
         );
 
         final int finalPosition = position;
@@ -59,8 +61,8 @@ public class AuthorsAdapter extends ArrayAdapter<Author> {
                 Log.d("my", mAuthors.get(finalPosition).getId().toString());
                 try {
                     new JsonFetchr((IFetchedDataHandler)mContext)
-                            //.fetch("http://10.0.3.2:8080/JavaPortalEJB-war/api/author");
-                            .fetchOne("http://10.0.2.2:8080/JavaPortalEJB-war/api/author/get/", mAuthors.get(finalPosition).getId());
+                            .fetchOne("http://10.0.3.2:8080/JavaPortalEJB-war/api/author/get/", mAuthors.get(finalPosition).getId());
+                            //.fetchOne("http://10.0.2.2:8080/JavaPortalEJB-war/api/author/get/", mAuthors.get(finalPosition).getId());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
