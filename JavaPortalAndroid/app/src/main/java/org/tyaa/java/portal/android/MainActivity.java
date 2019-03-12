@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.View;
+import android.widget.AdapterView;
 
 import org.tyaa.java.portal.android.adapter.AuthorsAdapter;
 import org.tyaa.java.portal.android.fetchr.IFetchedDataHandler;
@@ -25,10 +28,16 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
             "org.tyaa.java.portal.android.SELECTED_AUTHOR";
     public static final Integer NEW_AUTHOR_REQUEST = 0;
 
+    private final int MENU_DELETE_AUTHOR = 1;
+    private final int MENU_CANCEL = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.registerForContextMenu(findViewById(android.R.id.list));
+        Log.d("my_padding", String.valueOf(findViewById(android.R.id.list).getTag()));
 
         mAuthors = new ArrayList<>();
         mAuthorsAdapter =
@@ -54,8 +63,11 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
         //10.20.60.10
         //10.0.3.2
         new JsonFetchr(this)
-                .fetch("http://10.0.3.2:8080/JavaPortalEJB-war/api/author");
+                //.fetch("http://10.0.3.2:8080/JavaPortalEJB-war/api/author");
                 //.fetch("http://10.0.2.2:8080/JavaPortalEJB-war/api/author");
+                .fetch(
+                        getResources().getString(R.string.avd_base_url)
+                        + "author");
     }
 
     @Override
@@ -84,6 +96,20 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NEW_AUTHOR_REQUEST && resultCode == RESULT_OK) {
             getAllAuthors();
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        switch (v.getId()) {
+            case android.R.id.list: {
+                menu.add(0, MENU_DELETE_AUTHOR, 0, "DELETE");
+                menu.add(0, MENU_CANCEL, 1, "CANCEL");
+                /*AdapterView.AdapterContextMenuInfo info =
+                    (AdapterView.AdapterContextMenuInfo) menuInfo;
+                Log.d("pos", String.valueOf(info.position));*/
+            }
         }
     }
 }

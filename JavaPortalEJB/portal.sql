@@ -27,13 +27,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Articles` (
-  `id` int(11) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `content` text NOT NULL,
-  `image` text NOT NULL,
-  `published_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `author_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	`id` int(11) NOT NULL,
+	`title` varchar(50) NOT NULL,
+	`content` text NOT NULL,
+	`image` text NOT NULL,
+	`published_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`author_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -42,11 +42,11 @@ CREATE TABLE `Articles` (
 --
 
 CREATE TABLE `Authors` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `about` text NOT NULL,
-  `started_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	`id` int(11) NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`about` text NOT NULL,
+	`started_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `Authors`
@@ -65,14 +65,14 @@ INSERT INTO `Authors` (`id`, `name`, `about`, `started_at`) VALUES
 -- Индексы таблицы `Articles`
 --
 ALTER TABLE `Articles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `author_id` (`author_id`);
+ADD PRIMARY KEY (`id`),
+ADD KEY `author_id` (`author_id`);
 
 --
 -- Индексы таблицы `Authors`
 --
 ALTER TABLE `Authors`
-  ADD PRIMARY KEY (`id`);
+ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -82,12 +82,12 @@ ALTER TABLE `Authors`
 -- AUTO_INCREMENT для таблицы `Articles`
 --
 ALTER TABLE `Articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `Authors`
 --
 ALTER TABLE `Authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
@@ -96,7 +96,7 @@ ALTER TABLE `Authors`
 -- Ограничения внешнего ключа таблицы `Articles`
 --
 ALTER TABLE `Articles`
-  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `Authors` (`id`);
+ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `Authors` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

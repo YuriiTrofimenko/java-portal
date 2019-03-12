@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/yurii/NetBeansProjects/JavaPortal/JavaPortalEJB/JavaPortalEJB-war/src/java/org/tyaa/java/portal/server/web/service/AuthorService.java</file>
-            <file>file:/home/yurii/NetBeansProjects/JavaPortal/JavaPortalEJB/JavaPortalEJB-war/src/java/org/tyaa/java/portal/server/web/filter/UrlMappingFilter.java</file>
-            <file>file:/home/yurii/NetBeansProjects/JavaPortal/JavaPortalEJB/JavaPortalEJB-war/src/java/org/tyaa/java/portal/server/web/controller/AuthorController.java</file>
-            <file>file:/home/yurii/NetBeansProjects/JavaPortal/JavaPortalEJB/JavaPortalEJB-war/src/java/org/tyaa/java/portal/server/web/servlet/MainServlet.java</file>
+            <file>file:/C:/Users/student/tyaa/Android/Examples/java-portal/JavaPortalEJB/JavaPortalEJB-war/src/java/org/tyaa/java/portal/server/web/servlet/MainServlet.java</file>
+            <file>file:/C:/Users/student/tyaa/Android/Examples/java-portal/JavaPortalEJB/JavaPortalEJB-war/src/java/org/tyaa/java/portal/server/web/controller/AuthorController.java</file>
         </group>
     </open-files>
 </project-private>
