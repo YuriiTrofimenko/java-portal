@@ -133,7 +133,40 @@ public class JsonFetchr implements IFetchr {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        mFetchedDataHandler.onActionComleted(status);
+                        mFetchedDataHandler.onActionCompleted(status);
+                    }
+                }
+                        , new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Log.d("my", error.toString());
+                    }
+                }
+                );
+        queue.add(jsonArrayRequest);
+    }
+
+    @Override
+    public void deleteAuthor(String _url, Integer _id) {
+        _url += _id;
+        RequestQueue queue = Volley.newRequestQueue((Context) mFetchedDataHandler);
+        Log.d("my", _url);
+        JsonObjectRequest jsonArrayRequest =
+                new JsonObjectRequest(
+                        _url
+                        , new JSONObject()
+                        , new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("my", response.toString());
+                        String status = null;
+                        try {
+                            status = mJsonParser.parseResponse(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        mFetchedDataHandler.onActionCompleted(status);
                     }
                 }
                         , new Response.ErrorListener() {

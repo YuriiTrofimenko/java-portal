@@ -62,7 +62,7 @@ public class NewAuthorActivity extends Activity implements IFetchedDataHandler {
     }
 
     @Override
-    public void onActionComleted(String status) {
+    public void onActionCompleted(String status) {
         if (status.equals("created")){
             setResult(RESULT_OK);
             finish();

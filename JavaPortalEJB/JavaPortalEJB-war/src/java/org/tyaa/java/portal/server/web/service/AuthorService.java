@@ -78,4 +78,21 @@ public class AuthorService {
         
         return new JsonHttpResponse(result, "", null);
     }
+    
+    public JsonHttpResponse delete(Integer _id){
+        
+        try {
+            org.tyaa.java.portal.server.ejb.entity.Author author =
+                mAuthorFacade.find(_id);
+            
+            if (author != null) {
+                mAuthorFacade.remove(author);
+                return new JsonHttpResponse("deleted", "", null);
+            } else {
+                return new JsonHttpResponse("error", "Record with id " + _id + " not exists", null);
+            }
+        } catch (Exception e) {
+            return new JsonHttpResponse("error", "Unknown error", null);
+        }
+    }
 }

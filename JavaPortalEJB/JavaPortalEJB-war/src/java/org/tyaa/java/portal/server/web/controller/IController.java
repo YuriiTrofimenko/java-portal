@@ -17,5 +17,5 @@ public interface IController {
     JsonHttpResponse get(Object o);
     JsonHttpResponse create(Object o);
     JsonHttpResponse update(Object o);
-    JsonHttpResponse remove(Object o);
+    JsonHttpResponse delete(Object o);
 }

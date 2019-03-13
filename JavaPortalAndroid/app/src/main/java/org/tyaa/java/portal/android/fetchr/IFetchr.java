@@ -7,4 +7,5 @@ public interface IFetchr {
     void fetch(Object args);
     void fetchOne(String url, Integer id) throws JSONException;
     void createAuthor(String url, Author author) throws JSONException;
+    void deleteAuthor(String url, Integer id);
 }

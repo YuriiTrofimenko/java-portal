@@ -123,7 +123,9 @@ public class MainServlet extends HttpServlet {
                             .invoke(controllerInstance, args);
                     System.out.println(result);
                 } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+                    System.out.println("ERROR");
+                    //System.out.println(ex.getMessage());
+                    ex.printStackTrace();
                 }
             } else {
             

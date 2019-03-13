@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -24,6 +25,8 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
 
     private List<Author> mAuthors;
     private AuthorsAdapter mAuthorsAdapter;
+    private AdapterView.AdapterContextMenuInfo mSelectedItemInfo;
+
     public static final String SELECTED_AUTHOR =
             "org.tyaa.java.portal.android.SELECTED_AUTHOR";
     public static final Integer NEW_AUTHOR_REQUEST = 0;
@@ -87,8 +90,10 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
     }
 
     @Override
-    public void onActionComleted(String status) {
-
+    public void onActionCompleted(String status) {
+        if (status.equals("deleted")){
+            getAllAuthors();
+        }
     }
 
     @Override
@@ -106,10 +111,33 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
             case android.R.id.list: {
                 menu.add(0, MENU_DELETE_AUTHOR, 0, "DELETE");
                 menu.add(0, MENU_CANCEL, 1, "CANCEL");
-                /*AdapterView.AdapterContextMenuInfo info =
+                mSelectedItemInfo =
                     (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Log.d("pos", String.valueOf(info.position));*/
             }
         }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_DELETE_AUTHOR :{
+
+                Integer authorId =
+                        mAuthors.get(mSelectedItemInfo.position).getId();
+                new JsonFetchr(this)
+                        .deleteAuthor(
+                                getResources().getString(R.string.avd_base_url)
+                                        + "author/delete/"
+                                , authorId
+                        );
+                //Log.d("my_pos", String.valueOf(mSelectedItemInfo.position));
+                break;
+            }
+            case MENU_CANCEL :{
+                //System.out.println("");
+                break;
+            }
+        }
+        return super.onContextItemSelected(item);
     }
 }

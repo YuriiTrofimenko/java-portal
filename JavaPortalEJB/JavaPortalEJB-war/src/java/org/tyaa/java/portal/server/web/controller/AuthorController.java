@@ -91,7 +91,7 @@ public class AuthorController implements IController{
     }
 
     @Override
-    public JsonHttpResponse remove(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public JsonHttpResponse delete(Object _id) {
+        return mAuthorService.delete(Integer.valueOf(_id.toString()));
     }
 }
