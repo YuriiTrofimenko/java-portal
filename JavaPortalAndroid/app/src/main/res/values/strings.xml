@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">JavaPortalAndroid</string>
-    <string name="genymotion_base_url">http://10.0.3.2:8080/JavaPortalEJB-war/api/</string>
-    <string name="avd_base_url">http://10.0.2.2:8080/JavaPortalEJB-war/api/</string>
+    <!--<string name="genymotion_base_url">http://10.0.3.2:8080/JavaPortalEJB-war/api/</string>-->
+    <!--<string name="avd_base_url">http://10.0.2.2:8080/JavaPortalEJB-war/api/</string>-->
+    <string name="avd_base_url">http://10.0.3.2:8080/JavaPortalEJB-war/api/</string>
 </resources>

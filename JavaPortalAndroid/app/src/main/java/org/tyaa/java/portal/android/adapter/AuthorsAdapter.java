@@ -73,6 +73,8 @@ public class AuthorsAdapter extends ArrayAdapter<Author> {
             }
         });
 
+        view.setLongClickable(true);
+
         return view;
     }
 }
