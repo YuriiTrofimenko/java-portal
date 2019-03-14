@@ -39,13 +39,7 @@ public class NewAuthorActivity extends Activity implements IFetchedDataHandler {
         newAuthor.setAbout(mNewAuthorAboutEditText.getText().toString());
         try {
             new JsonFetchr(this)
-                    .createAuthor(
-                            //"http://10.0.2.2:8080/JavaPortalEJB-war/api/author/create"
-                            //"http://10.0.3.2:8080/JavaPortalEJB-war/api/author/create"
-                            getResources().getString(R.string.avd_base_url)
-                            + "author/create"
-                            , newAuthor
-                    );
+                    .createAuthor(newAuthor);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.tyaa.java.portal.android.R;
 import org.tyaa.java.portal.android.Utils;
 import org.tyaa.java.portal.model.Author;
 
@@ -24,17 +25,20 @@ public class JsonFetchr implements IFetchr {
 
     private IFetchedDataHandler mFetchedDataHandler;
     private JsonParser mJsonParser;
+    private String mBaseUrl;
 
     public JsonFetchr(IFetchedDataHandler _fetchedDataHandler) {
 
         mFetchedDataHandler = _fetchedDataHandler;
         mJsonParser = new JsonParser();
+        mBaseUrl =
+                ((Context)mFetchedDataHandler).getResources().getString(R.string.avd_base_url);
     }
 
     @Override
-    public void fetch(Object _args) {
+    public void fetch() {
 
-        String urlString = _args.toString();
+        String urlString = mBaseUrl + "author";
 
         RequestQueue queue = Volley.newRequestQueue((Context) mFetchedDataHandler);
         Log.d("my", urlString);
@@ -69,6 +73,7 @@ public class JsonFetchr implements IFetchr {
                     public void onErrorResponse(VolleyError error) {
 
                         Log.d("my", error.toString());
+                        Toast.makeText(((Context) mFetchedDataHandler), "Authors list fetch error", Toast.LENGTH_LONG).show();
                     }
                 }
             );
@@ -76,14 +81,14 @@ public class JsonFetchr implements IFetchr {
     }
 
     @Override
-    public void fetchOne(String _url, Integer _id) throws JSONException {
+    public void fetchOne(Integer _id) throws JSONException {
 
-        _url += _id;
+        String urlString = mBaseUrl + "author/get/" + _id;
         RequestQueue queue = Volley.newRequestQueue((Context) mFetchedDataHandler);
-        Log.d("my", _url);
+        Log.d("my", urlString);
         JsonObjectRequest jsonArrayRequest =
                 new JsonObjectRequest(
-                        _url
+                        urlString
                         , new JSONObject()
                         , new Response.Listener<JSONObject>() {
                     @Override
@@ -112,8 +117,9 @@ public class JsonFetchr implements IFetchr {
     }
 
     @Override
-    public void createAuthor(String _url, Author _author) throws JSONException {
+    public void createAuthor(Author _author) throws JSONException {
 
+        String urlString = mBaseUrl + "author/create";
         RequestQueue queue = Volley.newRequestQueue((Context) mFetchedDataHandler);
         JSONObject jsonObject = new JSONObject();
         _author.setName(Utils.prepareString(_author.getName()));
@@ -121,7 +127,7 @@ public class JsonFetchr implements IFetchr {
         jsonObject.put("author", mJsonParser.authorToJsonString(_author));
         JsonObjectRequest jsonArrayRequest =
                 new JsonObjectRequest(
-                        _url
+                        urlString
                         , jsonObject
                         , new Response.Listener<JSONObject>() {
                     @Override
@@ -148,13 +154,14 @@ public class JsonFetchr implements IFetchr {
     }
 
     @Override
-    public void deleteAuthor(String _url, Integer _id) {
-        _url += _id;
+    public void deleteAuthor(Integer _id) {
+
+        String urlString = mBaseUrl + "author/delete/" + _id;
         RequestQueue queue = Volley.newRequestQueue((Context) mFetchedDataHandler);
-        Log.d("my", _url);
+        Log.d("my", urlString);
         JsonObjectRequest jsonArrayRequest =
                 new JsonObjectRequest(
-                        _url
+                        urlString
                         , new JSONObject()
                         , new Response.Listener<JSONObject>() {
                     @Override

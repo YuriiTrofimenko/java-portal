@@ -61,12 +61,7 @@ public class AuthorsAdapter extends ArrayAdapter<Author> {
                 //Log.d("my", mAuthors.get(finalPosition).getId().toString());
                 try {
                     new JsonFetchr((IFetchedDataHandler)mContext)
-                            .fetchOne(
-                                    mContext.getResources().getString(R.string.avd_base_url)
-                                    + "author/get/"
-                                    , mAuthors.get(finalPosition).getId()
-                            );
-                            //.fetchOne("http://10.0.2.2:8080/JavaPortalEJB-war/api/author/get/", mAuthors.get(finalPosition).getId());
+                            .fetchOne(mAuthors.get(finalPosition).getId());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

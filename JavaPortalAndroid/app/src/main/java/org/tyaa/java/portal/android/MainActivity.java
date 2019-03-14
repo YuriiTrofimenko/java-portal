@@ -65,12 +65,7 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
         mAuthors.add(new Author(3, "auth3", "about a3", new Date()));*/
         //10.20.60.10
         //10.0.3.2
-        new JsonFetchr(this)
-                //.fetch("http://10.0.3.2:8080/JavaPortalEJB-war/api/author");
-                //.fetch("http://10.0.2.2:8080/JavaPortalEJB-war/api/author");
-                .fetch(
-                        getResources().getString(R.string.avd_base_url)
-                        + "author");
+        new JsonFetchr(this).fetch();
     }
 
     @Override
@@ -125,11 +120,7 @@ public class MainActivity extends ListActivity implements IFetchedDataHandler {
                 Integer authorId =
                         mAuthors.get(mSelectedItemInfo.position).getId();
                 new JsonFetchr(this)
-                        .deleteAuthor(
-                                getResources().getString(R.string.avd_base_url)
-                                        + "author/delete/"
-                                , authorId
-                        );
+                        .deleteAuthor(authorId);
                 //Log.d("my_pos", String.valueOf(mSelectedItemInfo.position));
                 break;
             }
